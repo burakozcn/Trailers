@@ -1,11 +1,12 @@
+import UIKit
 import SwiftUI
 import Combine
 
-struct MainView: View {
+struct MainPageView: View {
   @State private var name = ""
   let width = UIScreen.main.bounds.width
   let height = UIScreen.main.bounds.height
-  @State var going = false
+  let viewModel = MainPageViewModel()
   
   var body: some View {
     NavigationView {
@@ -26,12 +27,14 @@ struct MainView: View {
             .font(.headline)
           Spacer()
           Spacer()
-          Button("Advanced Search") { }
+          Button("Advanced Search") {
+            self.viewModel.goToAdvanced()
+          }
             .font(.body)
           Spacer()
           Spacer()
-          NavigationLink(destination: OptionsView()) {
-            Text("Options")
+          Button("Options") {
+            self.viewModel.goToOptions()
           }
           .font(.subheadline)
           Spacer()
@@ -47,7 +50,7 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
   static var previews: some View {
-    MainView()
+    MainPageView()
   }
 }
 

@@ -1,5 +1,5 @@
 import Foundation
 
-class ListViewModel {
+struct ListViewModel {
   
 }

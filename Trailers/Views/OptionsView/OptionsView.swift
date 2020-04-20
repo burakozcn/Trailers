@@ -1,16 +1,38 @@
 import SwiftUI
 
 struct OptionsView: View {
-  @State var appear = false
+  @State private var country = ""
+  @State private var explicit = true
+  @State private var number = 50
+  @State private var array = ["Yes", "No"]
+  @State private var selectionIndex = 0
+  @State private var explicitName: String? = "Explicit"
   
   var body: some View {
     NavigationView {
-      Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-        .navigationBarItems(leading: NavigationLink("Back", destination: MainView()))
-    }
-    .onAppear() {
-      self.appear = true
-      print("Options Appear")
+      VStack {
+        Spacer()
+        HStack {
+          Spacer()
+          Text("Country")
+          Spacer()
+          TextField("Default is US", text: $country)
+          Spacer()
+        }
+        HStack {
+          Text("Explicit")
+          TextFieldWithPickerAsInputView(data: array, placeHolder: "Choose One", selectionIndex: $selectionIndex, text: $explicitName)
+        }
+        HStack {
+          Text("Number of Search")
+          TextField("50", value: $number, formatter: NumberFormatter())
+        }
+        HStack {
+          Text("Type")
+          TextFieldWithPickerAsInputView(data: array, placeHolder: "Choose One", selectionIndex: $selectionIndex, text: $explicitName)
+        }
+        Spacer()
+      }
     }
   }
 }
