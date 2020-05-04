@@ -1,5 +1,5 @@
 import Foundation
 
-class OptionsViewCoordinator {
+class OptionsViewCoordinator: BaseCoordinator<Void> {
   
 }

@@ -22,6 +22,7 @@ struct TextFieldWithPickerAsInputView: UIViewRepresentable {
     picker.tintColor = .black
     textField.placeholder = placeHolder
     textField.inputView = picker
+    textField.inputAccessoryView = context.coordinator.toolbarSetup()
     textField.delegate = context.coordinator as UITextFieldDelegate
     return textField
   }
@@ -29,7 +30,7 @@ struct TextFieldWithPickerAsInputView: UIViewRepresentable {
   func updateUIView(_ uiView: UITextField, context: Context) {
     uiView.text = text
   }
-  
+    
   class Coordinator: NSObject, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     private let parent: TextFieldWithPickerAsInputView
     
@@ -52,11 +53,30 @@ struct TextFieldWithPickerAsInputView: UIViewRepresentable {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
       self.parent.$selectionIndex.wrappedValue = row
       self.parent.text = self.parent.data[self.parent.selectionIndex]
-      self.parent.textField.endEditing(true)
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
       self.parent.textField.resignFirstResponder()
+    }
+    
+    func toolbarSetup() -> UIToolbar {
+      let toolbar = UIToolbar()
+      toolbar.sizeToFit()
+      let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(donePicker))
+      let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+      let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelPicker))
+      
+      toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
+      return toolbar
+    }
+    
+    @objc func donePicker() {
+      self.parent.textField.endEditing(true)
+    }
+    
+    @objc func cancelPicker() {
+      self.parent.text = ""
+      self.parent.textField.endEditing(true)
     }
   }
   

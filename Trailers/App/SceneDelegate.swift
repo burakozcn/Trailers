@@ -6,7 +6,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   var window: UIWindow?
   private var appCoordinator: AppCoordinator!
   
-  let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+  let context = Persistence().persistentContainer.viewContext
   
   func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
     
@@ -36,7 +36,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   
   func sceneDidEnterBackground(_ scene: UIScene) {
     
-    (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+    Persistence().saveContext()
   }
   
   

@@ -1,5 +1,30 @@
-import Foundation
+import SwiftUI
+import UIKit
+import Combine
 
-class ListViewCoordinator {
+class ListViewCoordinator:BaseCoordinator<Void> {
+  var listViewModel: ListViewModel!
+  let results: Results
+  var masterCoordinator: MasterViewCoordinator!
   
+  init(results: Results) {
+    self.results = results
+  }
+  
+  override func start() -> CurrentValueSubject<Void, Never> {
+    listViewModel = ListViewModel(results: results)
+    let contentView = ListView().environmentObject(results)
+    
+    let window = UIApplication.shared.windows.first
+    window?.rootViewController = UIHostingController(rootView: contentView)
+    return CurrentValueSubject(())
+  }
+  
+  func goToMainView() {
+    let window = UIApplication.shared.windows.first
+    let context = Persistence().persistentContainer.viewContext
+    
+    masterCoordinator = MasterViewCoordinator(window: window!, context: context, x: .main)
+    masterCoordinator.start()
+  }
 }

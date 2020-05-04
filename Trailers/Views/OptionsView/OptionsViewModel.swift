@@ -1,5 +1,5 @@
 import Foundation
 
-class OptionsViewModel {
+struct OptionsViewModel {
   
 }

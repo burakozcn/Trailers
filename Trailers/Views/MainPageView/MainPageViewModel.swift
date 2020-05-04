@@ -2,6 +2,7 @@ import Foundation
 
 class MainPageViewModel {
   var mainPageViewCoordinator: MainPageViewCoordinator!
+
   
   func goToOptions() {
     mainPageViewCoordinator = MainPageViewCoordinator()
@@ -13,4 +14,8 @@ class MainPageViewModel {
     mainPageViewCoordinator.goToAdvanced()
   }
   
+  func goToListView(results: Results) {
+    mainPageViewCoordinator = MainPageViewCoordinator()
+    mainPageViewCoordinator.goToListView(results: results)
+  }
 }

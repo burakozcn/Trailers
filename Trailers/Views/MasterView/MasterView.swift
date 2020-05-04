@@ -19,6 +19,7 @@ struct MasterView: View {
             .frame(width: width, height: height, alignment: .trailing)
         } else if x.rawValue == 1 {
           OptionsView()
+          .environmentObject(TextModel())
             .frame(width: width, height: height, alignment: .trailing)
         } else if x.rawValue == 2 {
           AdvancedSearchView()
@@ -51,6 +52,6 @@ struct MasterView: View {
   
   struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-      MasterView(x: .main)
+      MasterView(x: .main).environment(\.managedObjectContext, Persistence().persistentContainer.viewContext)
     }
 }
