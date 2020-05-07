@@ -7,14 +7,20 @@ struct ListView: View {
   
   var body: some View {
     NavigationView {
-      return List(result.results) { result in
-        ListRow(result: result)
+      VStack {
+        List(result.results) { result in
+          ListRow(result: result)
+        }
+        Button("Save Results") {
+          self.viewModel = ListViewModel(results: self.result)
+          self.viewModel.saveResults()
+        }
+        .navigationBarTitle("Results")
+        .navigationBarItems(leading: Button("< Back") {
+          self.viewModel = ListViewModel(results: self.result)
+          self.viewModel.goToMainView()
+        })
       }
-      .navigationBarTitle("Results")
-      .navigationBarItems(leading: Button("< Back") {
-        self.viewModel = ListViewModel(results: self.result)
-        self.viewModel.goToMainView()
-      })
     }
   }
 }

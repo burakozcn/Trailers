@@ -1,15 +1,25 @@
 import UIKit
 import SwiftUI
+import CoreData
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   
   var window: UIWindow?
   private var appCoordinator: AppCoordinator!
+  var persistence: Persistence!
   
-  let context = Persistence().persistentContainer.viewContext
   
   func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+    let fm = FileManager.default
+
+    let storeURL = fm.urls(for: .documentDirectory, in: .userDomainMask)
+    let sqliteURL = storeURL[0].appendingPathComponent("Trailers.sqlite")
+    print(sqliteURL)
     
+    persistence = Persistence()
+    let context = persistence.persistentContainer.viewContext
+    
+    checkFalseLogin()
     if let windowScene = scene as? UIWindowScene {
       let window = UIWindow(windowScene: windowScene)
       self.window = window
@@ -18,27 +28,32 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
   }
   
-  func sceneDidDisconnect(_ scene: UIScene) {
-    
-  }
-  
-  func sceneDidBecomeActive(_ scene: UIScene) {
-    
-  }
-  
-  func sceneWillResignActive(_ scene: UIScene) {
-    
-  }
-  
-  func sceneWillEnterForeground(_ scene: UIScene) {
-    
-  }
-  
   func sceneDidEnterBackground(_ scene: UIScene) {
     
     Persistence().saveContext()
   }
   
-  
+  func checkFalseLogin() {
+    persistence = Persistence()
+    let context = persistence.persistentContainer.viewContext
+    
+    persistence = Persistence()
+    
+    let predicate = NSPredicate(format: "isLogin='true'")
+    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
+    fetchRequest.predicate = predicate
+    
+    do {
+      let users = try context.fetch(fetchRequest) as! [User]
+      if users.count == 1 {
+        users.first!.setValue(false, forKey: "isLogin")
+        persistence.saveContext()
+      } else  {
+        print("There is no false login")
+      }
+    } catch {
+      print("There is an error we have to handle")
+    }
+  }
 }
 

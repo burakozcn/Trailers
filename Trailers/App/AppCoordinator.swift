@@ -5,6 +5,7 @@ import CoreData
 class AppCoordinator: BaseCoordinator<Void> {
   private weak var window: UIWindow?
   private var context: NSManagedObjectContext
+  private var loginViewCoordinator: LoginViewCoordinator!
   
   init(window: UIWindow, context: NSManagedObjectContext) {
     self.window = window
@@ -12,8 +13,8 @@ class AppCoordinator: BaseCoordinator<Void> {
   }
   
   override func start() -> CurrentValueSubject<Void, Never> {
-    let masterViewCoordinator = MasterViewCoordinator(window: window!, context: context, x: .main)
-    coordinate(coordinator: masterViewCoordinator)
+    loginViewCoordinator = LoginViewCoordinator()
+    coordinate(coordinator: loginViewCoordinator)
     
     return CurrentValueSubject<Void, Never>.init(())
   }

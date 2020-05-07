@@ -7,7 +7,7 @@ struct TextFieldWithPickerAsInputView: UIViewRepresentable {
   var placeHolder: String
   
   @Binding var selectionIndex: Int
-  @Binding var text: String?
+  @Binding var text: String
   
   private let textField = UITextField()
   private let picker = UIPickerView()
@@ -52,7 +52,7 @@ struct TextFieldWithPickerAsInputView: UIViewRepresentable {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
       self.parent.$selectionIndex.wrappedValue = row
-      self.parent.text = self.parent.data[self.parent.selectionIndex]
+      self.parent.textField.text = self.parent.data[row]
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -65,17 +65,18 @@ struct TextFieldWithPickerAsInputView: UIViewRepresentable {
       let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(donePicker))
       let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
       let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelPicker))
-      
+
       toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
       return toolbar
     }
-    
+
     @objc func donePicker() {
+      self.parent.text = self.parent.textField.text!
       self.parent.textField.endEditing(true)
     }
-    
+
     @objc func cancelPicker() {
-      self.parent.text = ""
+      self.parent.textField.text = ""
       self.parent.textField.endEditing(true)
     }
   }

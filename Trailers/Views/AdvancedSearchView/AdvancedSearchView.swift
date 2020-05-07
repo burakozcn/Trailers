@@ -5,15 +5,15 @@ struct AdvancedSearchView: View {
   @State private var chosenArray: [String] = []
   @State private var searchCount = 0
   @State private var selectionIndex = 0
-  @State private var field1: String? = ""
+  @State private var field1 = ""
   @State private var search1 = ""
-  @State private var field2: String? = ""
+  @State private var field2 = ""
   @State private var search2 = ""
-  @State private var field3: String? = ""
+  @State private var field3 = ""
   @State private var search3 = ""
-  @State private var field4: String? = ""
+  @State private var field4 = ""
   @State private var search4 = ""
-  @State private var field5: String? = ""
+  @State private var field5 = ""
   @State private var search5 = ""
   
   let width = UIScreen.main.bounds.width
@@ -116,41 +116,41 @@ struct AdvancedSearchView: View {
   
   func addToArray() {
     if searchCount == 0 && field1 != "" {
-      chosenArray.append(field1!)
+      chosenArray.append(field1)
     } else if searchCount == 1 && field2 != "" {
-      chosenArray.append(field2!)
+      chosenArray.append(field2)
     } else if searchCount == 2 && field3 != "" {
-      chosenArray.append(field3!)
+      chosenArray.append(field3)
     } else if searchCount == 3 && field4 != "" {
-      chosenArray.append(field4!)
+      chosenArray.append(field4)
     } else if searchCount == 4 && field5 != "" {
-      chosenArray.append(field5!)
+      chosenArray.append(field5)
     }
   }
   
   func removeFromArray() {
     if searchCount == 0 {
-      if let index = chosenArray.firstIndex(of: field1!) {
+      if let index = chosenArray.firstIndex(of: field1) {
         chosenArray.remove(at: index)
       }
       field1 = ""
     } else if searchCount == 1 {
-      if let index = chosenArray.firstIndex(of: field2!) {
+      if let index = chosenArray.firstIndex(of: field2) {
         chosenArray.remove(at: index)
       }
       field2 = ""
     } else if searchCount == 2 {
-      if let index = chosenArray.firstIndex(of: field3!) {
+      if let index = chosenArray.firstIndex(of: field3) {
         chosenArray.remove(at: index)
       }
       field3 = ""
     } else if searchCount == 3 {
-      if let index = chosenArray.firstIndex(of: field4!) {
+      if let index = chosenArray.firstIndex(of: field4) {
         chosenArray.remove(at: index)
       }
       field4 = ""
     } else if searchCount == 4 {
-      if let index = chosenArray.firstIndex(of: field5!) {
+      if let index = chosenArray.firstIndex(of: field5) {
         chosenArray.remove(at: index)
       }
       field5 = ""

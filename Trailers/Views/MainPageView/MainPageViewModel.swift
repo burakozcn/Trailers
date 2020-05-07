@@ -2,7 +2,9 @@ import Foundation
 
 class MainPageViewModel {
   var mainPageViewCoordinator: MainPageViewCoordinator!
-
+  var persistence: Persistence!
+  
+  var username: String = Helper().user.name
   
   func goToOptions() {
     mainPageViewCoordinator = MainPageViewCoordinator()

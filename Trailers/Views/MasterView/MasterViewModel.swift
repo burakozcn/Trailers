@@ -15,7 +15,6 @@ class MasterViewModel {
     
     window?.rootViewController = UIHostingController(rootView: contentView.environment(\.managedObjectContext
       , context))
-      window?.makeKeyAndVisible()
   }
   
   func goToMain() {

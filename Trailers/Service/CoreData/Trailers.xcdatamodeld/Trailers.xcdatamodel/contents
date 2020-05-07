@@ -3,9 +3,9 @@
     <entity name="Options" representedClassName="Options" syncable="YES">
         <attribute name="country" optional="YES" attributeType="String"/>
         <attribute name="explicit" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="numberOfSearch" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="type" optional="YES" attributeType="String"/>
-        <attribute name="userId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
     </entity>
     <entity name="ResultModel" representedClassName="ResultModel" syncable="YES">
         <attribute name="artistName" attributeType="String"/>
@@ -14,10 +14,11 @@
         <attribute name="country" attributeType="String"/>
         <attribute name="previewUrl" attributeType="String"/>
         <attribute name="primaryGenreName" attributeType="String"/>
-        <attribute name="releaseDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="releaseDate" attributeType="String"/>
         <attribute name="trackName" optional="YES" attributeType="String"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES">
+        <attribute name="isLogin" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
         <relationship name="options" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Options"/>
         <relationship name="results" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ResultModel"/>
@@ -25,6 +26,6 @@
     <elements>
         <element name="Options" positionX="-63" positionY="135" width="128" height="118"/>
         <element name="ResultModel" positionX="-63" positionY="-18" width="128" height="163"/>
-        <element name="User" positionX="-54" positionY="144" width="128" height="88"/>
+        <element name="User" positionX="-54" positionY="144" width="128" height="103"/>
     </elements>
 </model>

@@ -18,7 +18,7 @@ struct MainPageView: View {
       VStack {
         Spacer()
           .frame(width: width, height: 0.1 * height, alignment: .center)
-        Text("Welcome, Burak")
+        Text("Welcome, \(viewModel.username)")
           .font(.largeTitle)
           .frame(width: width, height: 0.2 * height, alignment: .center)
         Spacer()

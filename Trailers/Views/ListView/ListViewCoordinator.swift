@@ -25,6 +25,6 @@ class ListViewCoordinator:BaseCoordinator<Void> {
     let context = Persistence().persistentContainer.viewContext
     
     masterCoordinator = MasterViewCoordinator(window: window!, context: context, x: .main)
-    masterCoordinator.start()
+    return coordinate(coordinator: masterCoordinator)
   }
 }

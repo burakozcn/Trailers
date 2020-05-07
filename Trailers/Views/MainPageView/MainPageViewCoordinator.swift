@@ -15,7 +15,7 @@ class MainPageViewCoordinator: BaseCoordinator<Void> {
     window = UIApplication.shared.windows.first
     context = persistence.persistentContainer.viewContext
     masterViewCoordinator = MasterViewCoordinator(window: window!, context: context, x: .options)
-    masterViewCoordinator.start()
+    return coordinate(coordinator: masterViewCoordinator)
   }
   
   func goToAdvanced() {
@@ -24,12 +24,12 @@ class MainPageViewCoordinator: BaseCoordinator<Void> {
     window = UIApplication.shared.windows.first
     context = persistence.persistentContainer.viewContext
     masterViewCoordinator = MasterViewCoordinator(window: window!, context: context, x: .advancedSearch)
-    masterViewCoordinator.start()
+    return coordinate(coordinator: masterViewCoordinator)
   }
   
   func goToListView(results: Results) {
     listViewCoordinator = ListViewCoordinator(results: results)
-    listViewCoordinator.start()
+    return coordinate(coordinator: listViewCoordinator)
   }
 }
 
