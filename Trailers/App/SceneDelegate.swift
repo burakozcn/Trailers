@@ -37,16 +37,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     persistence = Persistence()
     let context = persistence.persistentContainer.viewContext
     
-    persistence = Persistence()
-    
-    let predicate = NSPredicate(format: "isLogin='true'")
+    let predicate = NSPredicate(format: "isLogin == YES")
     let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
     fetchRequest.predicate = predicate
     
     do {
       let users = try context.fetch(fetchRequest) as! [User]
-      if users.count == 1 {
-        users.first!.setValue(false, forKey: "isLogin")
+      if users.count > 0 {
+        for user in users {
+          user.setValue(false, forKey: "isLogin")
+        }
         persistence.saveContext()
       } else  {
         print("There is no false login")

@@ -9,8 +9,6 @@ class NetworkManagement {
     let mainString = "https://itunes.apple.com/search?media=movie&term="
     let nameTerm = nameConverter(name: name)
     
-    print("Name Term == \(mainString + nameTerm)")
-    
     let url = URL(string: mainString + nameTerm)!
     
     return URLSession.shared

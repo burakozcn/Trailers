@@ -33,9 +33,17 @@ struct ListView_Previews: PreviewProvider {
 
 
 struct ListRow: View {
+  @Environment(\.imageCache) var cache: ImageCache
   var result: Result
+  let width = UIScreen.main.bounds.width
+  let height = UIScreen.main.bounds.height
   
   var body: some View {
-    Text("\(result.trackName)")
+    HStack {
+      AsyncImage(url: URL(string: result.artworkUrl30)!, placeholder: Text("Loading"), cache: self.cache)
+        .frame(width: width / 12, height: height / 18, alignment: .center)
+        .aspectRatio(contentMode: .fit)
+      Text("\(result.trackName)")
+    }
   }
 }

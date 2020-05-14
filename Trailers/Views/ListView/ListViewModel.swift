@@ -26,54 +26,42 @@ class ListViewModel {
     fetchRequest.predicate = predicate
     
     do {
-      let users = try context.fetch(fetchRequest) as! [User]
-      if users.count == 1 {
-        if users.first!.results == nil {
-          saveResultsFirst()
-        } else {
-          updateResults(user: users.first!)
+      for i in 0..<results.results.count {
+        let resultModels = NSEntityDescription.insertNewObject(forEntityName: "ResultModel", into: context) as! ResultModel
+        
+        let users = try context.fetch(fetchRequest) as! [User]
+        if checkResults(user: users.first!, trackName: results.results[i].trackName) {
+          
+          resultModels.artistName = results.results[i].artistName
+          resultModels.collectionName = results.results[i].collectionName
+          resultModels.country = results.results[i].country
+          resultModels.previewUrl = results.results[i].previewUrl
+          resultModels.artworkUrl30 = results.results[i].artworkUrl30
+          resultModels.primaryGenreName = results.results[i].primaryGenreName
+          resultModels.releaseDate = results.results[i].releaseDate
+          resultModels.trackName = results.results[i].trackName
+          
+          users.first!.addToResults(resultModels)
+          persistence.saveContext()
         }
       }
     } catch {
-      print("There is an error we have to handle")
+      print("There is a problem!!")
     }
   }
   
-  func saveResultsFirst() {
-    persistence = Persistence()
-    helper = Helper()
-    
-    let context = persistence.persistentContainer.viewContext
-    
-    let predicate = NSPredicate(format: "name = '\(helper.user.name)'")
-    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
-    fetchRequest.predicate = predicate
-    
-    for i in 0..<results.results.count {
-      let resultModels = NSEntityDescription.insertNewObject(forEntityName: "ResultModel", into: context) as! ResultModel
-      
-      resultModels.artistName = results.results[i].artistName
-      resultModels.collectionName = results.results[i].collectionName
-      resultModels.country = results.results[i].country
-      resultModels.previewUrl = results.results[i].previewUrl
-      resultModels.artworkUrl30 = results.results[i].artworkUrl30
-      resultModels.primaryGenreName = results.results[i].primaryGenreName
-      resultModels.releaseDate = results.results[i].releaseDate
-      resultModels.trackName = results.results[i].trackName
-      
-      do {
-        let users = try context.fetch(fetchRequest) as! [User]
-        users.first!.setValue(resultModels, forKey: "results")
-      } catch {
-        print("There is a problem!!")
+  
+  private func checkResults(user: User, trackName: String) -> Bool {
+    var a = true
+    if let results = user.results {
+      for result in results {
+        if trackName == (result as! ResultModel).trackName {
+          print("\(trackName) === \((result as! ResultModel).trackName)")
+          a = false
+        }
       }
-      
-      persistence.saveContext()
     }
-  }
-  
-  func updateResults(user: User) {
-    
+    return a
   }
   
   func goToMainView() {

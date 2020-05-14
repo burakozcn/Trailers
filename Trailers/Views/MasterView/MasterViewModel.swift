@@ -43,12 +43,11 @@ class MasterViewModel {
         let previewUrl = arr[i].previewUrl
         let primaryGenreName = arr[i].primaryGenreName
         let releaseDate = arr[i].releaseDate
-        let artworkUrl30 = arr[i].artworkUrl30
+        let artworkUrl30 = arr[i].artworkUrl100
         let trackName = arr[i].trackName
         let result = Result(artistName: artistName, collectionName: collectionName, country: country, previewUrl: previewUrl, primaryGenreName: primaryGenreName, releaseDate: releaseDate, artworkUrl30: artworkUrl30, trackName: trackName)
         self.results.results.append(result)
       }
-      print(self.results.results[0].trackName)
     }
   }
   

@@ -38,6 +38,7 @@ class LoginViewModel {
       } else if users.count > 1 {
         print("There is an error we have to handle")
       } else if users.count == 0 {
+        print("O papatya")
         signUp(name: name)
       }
     } catch {

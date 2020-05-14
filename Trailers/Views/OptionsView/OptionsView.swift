@@ -3,7 +3,6 @@ import SwiftUI
 struct OptionsView: View {
   let viewModel = OptionsViewModel()
   @EnvironmentObject var textModel: TextModel
-  @State var explicitName1: String? = "Explicit"
   
   let width = UIScreen.main.bounds.width
   let height = UIScreen.main.bounds.height

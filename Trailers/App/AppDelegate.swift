@@ -34,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     do {
       let users = try context.fetch(fetchRequest) as! [User]
       if users.count == 1 {
+        print(users)
         deleteLogin(user: users.first!)
       } else  {
         print("There is an error we have to handle")
