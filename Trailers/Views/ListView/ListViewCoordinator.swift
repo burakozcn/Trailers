@@ -6,6 +6,7 @@ class ListViewCoordinator:BaseCoordinator<Void> {
   var listViewModel: ListViewModel!
   let results: Results
   var masterCoordinator: MasterViewCoordinator!
+  var detailViewCoordinator: DetailViewCoordinator!
   
   init(results: Results) {
     self.results = results
@@ -26,5 +27,10 @@ class ListViewCoordinator:BaseCoordinator<Void> {
     
     masterCoordinator = MasterViewCoordinator(window: window!, context: context, x: .main)
     return coordinate(coordinator: masterCoordinator)
+  }
+  
+  func goToDetailView(detailResult: Result) {
+    detailViewCoordinator = DetailViewCoordinator(detailResult: detailResult)
+    return coordinate(coordinator: detailViewCoordinator)
   }
 }

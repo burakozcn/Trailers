@@ -12,6 +12,9 @@ class ListViewModel {
   
   init(results: Results) {
     self.results = results
+    if results.results.count != 0 {
+      resultCache["results"] = results
+    }
     ListView().environmentObject(results)
   }
   
@@ -56,7 +59,6 @@ class ListViewModel {
     if let results = user.results {
       for result in results {
         if trackName == (result as! ResultModel).trackName {
-          print("\(trackName) === \((result as! ResultModel).trackName)")
           a = false
         }
       }
@@ -67,5 +69,10 @@ class ListViewModel {
   func goToMainView() {
     coordinator = ListViewCoordinator(results: results)
     coordinator.goToMainView()
+  }
+  
+  func goToDetail(result: Result) {
+    coordinator = ListViewCoordinator(results: results)
+    coordinator.goToDetailView(detailResult: result)
   }
 }

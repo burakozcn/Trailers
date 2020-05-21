@@ -37,6 +37,7 @@ struct ListRow: View {
   var result: Result
   let width = UIScreen.main.bounds.width
   let height = UIScreen.main.bounds.height
+  @State var viewModel: ListViewModel!
   
   var body: some View {
     HStack {
@@ -44,6 +45,10 @@ struct ListRow: View {
         .frame(width: width / 12, height: height / 18, alignment: .center)
         .aspectRatio(contentMode: .fit)
       Text("\(result.trackName)")
+        .onTapGesture {
+          self.viewModel = ListViewModel(results: Results())
+          self.viewModel.goToDetail(result: self.result)
+      }
     }
   }
 }

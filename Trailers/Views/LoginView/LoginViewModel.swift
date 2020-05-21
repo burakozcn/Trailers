@@ -2,7 +2,7 @@ import UIKit
 import SwiftUI
 import CoreData
 
-class LoginViewModel {
+class LoginViewModel: ObservableObject {
   private var loginCoordinator: LoginViewCoordinator!
   private var persistence: Persistence!
   

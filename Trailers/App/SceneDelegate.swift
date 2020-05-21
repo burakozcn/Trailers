@@ -8,10 +8,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   private var appCoordinator: AppCoordinator!
   var persistence: Persistence!
   
-  
   func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
     let fm = FileManager.default
-
+    
     let storeURL = fm.urls(for: .documentDirectory, in: .userDomainMask)
     let sqliteURL = storeURL[0].appendingPathComponent("Trailers.sqlite")
     print(sqliteURL)
@@ -31,6 +30,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   func sceneDidEnterBackground(_ scene: UIScene) {
     
     Persistence().saveContext()
+  }
+  
+  func windowScene(_ windowScene: UIWindowScene, didUpdate previousCoordinateSpace: UICoordinateSpace, interfaceOrientation previousInterfaceOrientation: UIInterfaceOrientation, traitCollection previousTraitCollection: UITraitCollection) {
+    
   }
   
   func checkFalseLogin() {
