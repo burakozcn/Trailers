@@ -26,9 +26,6 @@ struct DetailView: View {
                   .frame(width: self.width, height: self.height * 0.23, alignment: .center)
               }
             }
-            else {
-              VideoPlayerLandscapeContainerView(url: URL(string: self.result.previewUrl)!)
-            }
           }
         }
       }

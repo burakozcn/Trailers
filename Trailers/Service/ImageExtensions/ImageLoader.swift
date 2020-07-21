@@ -16,7 +16,9 @@ class ImageLoader: ObservableObject {
   }
   
   deinit {
-    cancellable?.cancel()
+    if let cancel = cancellable {
+        cancel.cancel()
+    }
   }
   
   func load() {

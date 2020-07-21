@@ -49,9 +49,9 @@ struct VideoPlayerContainerView : View {
                                     set: { self.viewModel.seeking = $0 }),
                                   player: self.player)
             .frame(width: self.width, height: proxy.size.width < proxy.size.height ? self.height * 0.12 : self.height * 0.17, alignment: .center)
-//            .onDisappear {
-//              self.player.replaceCurrentItem(with: nil)
-//          }
+            .onDisappear {
+              self.player.replaceCurrentItem(with: nil)
+          }
           if proxy.size.width < proxy.size.height {
             Spacer()
               .frame(width: self.width, height: self.height * 0.49, alignment: .center)
